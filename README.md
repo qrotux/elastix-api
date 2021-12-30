@@ -6,12 +6,16 @@
 Elastix and Asterisk API Provider to make FreePBX easy to manage, written in PHP4.
 
 ## Installation
-Open your Elastix (CentOS) terminal, and go to elastix directory, then download it:
+Open your Elastix (CentOS) terminal, and go to "/var/www/html" directory, then download it:
 
 ```
 cd /var/www/html
-git clone https://github.com/101t/elastix-api.git
+git clone https://github.com/qrotux/elastix-api.git
 ```
+
+Put token in file "/var/www/.elastix-api-token"
+
+OR
 
 Open `api.php` and generate token key then replace it in:
 
@@ -37,7 +41,7 @@ This api package can implement:
 * Follow Me Extension Management (Create, Update, Delete, Read)
 
 ## Documentation
-Installation and developer guide [here](https://github.com/101t/elastix-api/wiki).
+Installation and developer guide [here](https://github.com/qrotux/elastix-api/wiki).
 
 ## Contribute
 
