@@ -7,10 +7,10 @@ class APICommand
 	public function __construct($rkey, $cmd)
 	{
 		$key = getenv('ELASTIX_API_KEY');
-		$keyFile = '../.elastix-api-key';
+		$keyFile = '../../.elastix-api-key';
 
 		if (!$key && file_exists($keyFile)) {
-			$key = file_get_contents($keyFile);
+			$key = trim(file_get_contents($keyFile));
 		}
 
 		if (!$key) {
