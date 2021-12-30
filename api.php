@@ -6,7 +6,18 @@ class APICommand
 {
 	public function __construct($rkey, $cmd)
 	{
-		$this->key = 'YOUR_SECRETKEY_50_RANDOM_CHARS';
+		$key = getenv('ELASTIX_API_KEY');
+		$keyFile = '../.elastix-api-key';
+
+		if (!$key && file_exists($keyFile)) {
+			$key = file_get_contents($keyFile);
+		}
+
+		if (!$key) {
+			$key = 'YOUR_SECRETKEY_50_RANDOM_CHARS';
+		}
+
+		$this->key = $key;
 		$this->rkey = $rkey;
 		$this->cmd = $cmd;
 	}
