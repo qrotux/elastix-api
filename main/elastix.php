@@ -4,6 +4,10 @@ include_once dirname(__FILE__)."/lib/json/phpJson.class.php";
 include_once dirname(__FILE__)."/lib/ast/Extension.php";
 class Elastix{
 	public function __construct(){
+		$this->_setup_asterisk_db();
+	}
+
+        protected function _setup_elastix_db() {
 		$fh = fopen('/etc/elastix.conf','r');
 		$data = array();
 		while ($line = fgets($fh)) {
@@ -19,7 +23,33 @@ class Elastix{
 		$this->username = "root";
 		$this->password = $data["mysqlrootpwd"];
 		$this->db = null;
-	}
+        }
+
+        protected function _setup_asterisk_db() {
+                $fh = fopen('/etc/asterisk/cdr_mysql.conf','r');
+                $data = array(
+                    'hostname' => 'localhost',
+                    'dbname'   => null,
+                    'user'     => 'root',
+                    'password' => 'root',
+                );
+                while ($line = fgets($fh)) {
+                        if(strlen($line) > 1){
+                                $doarr = array_map('trim', split("=", $line));
+                                foreach ($data as $key => $_) {
+                                        if ($doarr[0] !== $key)	continue;
+					$data[$key] = $doarr[1];
+				}
+                        }
+                }
+                fclose($fh);
+
+                $this->hostname = $data['hostname'];
+                $this->username = $data['user'];
+                $this->password = $data['password'];
+                $this->db = $data['dbname'];
+        }
+
 	public function __destruct(){
 		try {
 			$this->db = null;
